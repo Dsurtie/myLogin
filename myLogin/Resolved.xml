@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="en-ZA">
+  <Title Text="Resolved Complaints" />
+  <DataSources>
+    <SqlDataSource ComponentName="dashboardSqlDataSource1">
+      <Name>SQL Data Source 1</Name>
+      <Connection Name="Server=tcp:cmsdurban.database.windows.net,1433;Initial Catalog=cmsduutt_db;Persist Security Info=False;User ID=PSK;Password=Burgundy12;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" ProviderKey="MSSqlServer">
+        <Parameters>
+          <Parameter Name="server" Value="cmsdurban.database.windows.net,1433" />
+          <Parameter Name="database" Value="cmsduutt_db" />
+          <Parameter Name="useIntegratedSecurity" Value="false" />
+          <Parameter Name="read only" Value="1" />
+          <Parameter Name="generateConnectionHelper" Value="false" />
+          <Parameter Name="userid" Value="PSK" />
+          <Parameter Name="password" Value="Burgundy12" />
+        </Parameters>
+      </Connection>
+      <Query Type="TableQuery" Name="tblCMS2">
+        <Table Name="tblCMS2">
+          <Column Name="Reference" />
+          <Column Name="Title" />
+          <Column Name="IDNumber" />
+          <Column Name="FullName" />
+          <Column Name="Address" />
+          <Column Name="ContactNumber" />
+          <Column Name="EmailAddress" />
+          <Column Name="NatureOfComplaint" />
+          <Column Name="Date" />
+          <Column Name="Priority" />
+          <Column Name="Location" />
+          <Column Name="Complaint" />
+          <Column Name="RateService" />
+          <Column Name="Department" />
+          <Column Name="Responded" />
+          <Column Name="ResponseStatus" />
+          <Column Name="Image" />
+        </Table>
+      </Query>
+      <ResultSchema>
+        <DataSet Name="SQL Data Source 1">
+          <View Name="tblCMS2">
+            <Field Name="Reference" Type="String" />
+            <Field Name="Title" Type="String" />
+            <Field Name="IDNumber" Type="String" />
+            <Field Name="FullName" Type="String" />
+            <Field Name="Address" Type="String" />
+            <Field Name="ContactNumber" Type="String" />
+            <Field Name="EmailAddress" Type="String" />
+            <Field Name="NatureOfComplaint" Type="String" />
+            <Field Name="Date" Type="String" />
+            <Field Name="Priority" Type="String" />
+            <Field Name="Location" Type="String" />
+            <Field Name="Complaint" Type="String" />
+            <Field Name="RateService" Type="String" />
+            <Field Name="Department" Type="String" />
+            <Field Name="Responded" Type="String" />
+            <Field Name="ResponseStatus" Type="String" />
+            <Field Name="Image" Type="String" />
+          </View>
+        </DataSet>
+      </ResultSchema>
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <Grid ComponentName="gridDashboardItem1" Name="Resolved Complaints" DataSource="dashboardSqlDataSource1" DataMember="tblCMS2" FilterString="[DataItem6] = 'Closed'">
+      <DataItems>
+        <Dimension DataMember="IDNumber" UniqueName="DataItem0" />
+        <Dimension DataMember="FullName" UniqueName="DataItem1" />
+        <Dimension DataMember="Location" UniqueName="DataItem2" />
+        <Dimension DataMember="Complaint" UniqueName="DataItem3" />
+        <Dimension DataMember="Department" UniqueName="DataItem4" />
+        <Dimension DataMember="Priority" UniqueName="DataItem5" />
+        <Dimension DataMember="ResponseStatus" UniqueName="DataItem6" />
+      </DataItems>
+      <GridColumns>
+        <GridDimensionColumn>
+          <Dimension UniqueName="DataItem0" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension UniqueName="DataItem1" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension UniqueName="DataItem2" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension UniqueName="DataItem3" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension UniqueName="DataItem4" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension UniqueName="DataItem5" />
+        </GridDimensionColumn>
+        <GridDimensionColumn>
+          <Dimension UniqueName="DataItem6" />
+        </GridDimensionColumn>
+      </GridColumns>
+      <GridOptions EnableBandedRows="true" />
+    </Grid>
+    
+    <Pie ComponentName="pieDashboardItem2" Name="Service Rating" DataSource="dashboardSqlDataSource1" DataMember="tblCMS2" PieType="Donut" ShowPieCaptions="false">
+      <InteractivityOptions MasterFilterMode="Multiple" IsDrillDownEnabled="true" TargetDimensions="Points" />
+      <DataItems>
+        <Dimension DataMember="RateService" UniqueName="DataItem0" />
+        <Measure DataMember="Department" Name="Department " SummaryType="Count" UniqueName="DataItem1" />
+      </DataItems>
+      <Arguments>
+        <Argument UniqueName="DataItem0" />
+      </Arguments>
+      <Values>
+        <Value UniqueName="DataItem1" />
+      </Values>
+    </Pie>
+
+    <Chart ComponentName="chartDashboardItem2" Name="Complaints By Location" DataSource="dashboardSqlDataSource1" DataMember="tblCMS2">
+      <ColoringOptions UseGlobalColors="false" />
+      <InteractivityOptions MasterFilterMode="Multiple" />
+      <DataItems>
+        <Dimension DataMember="Location" UniqueName="DataItem1" />
+        <Measure DataMember="Complaint" SummaryType="Count" UniqueName="DataItem0" />
+      </DataItems>
+      <Arguments>
+        <Argument UniqueName="DataItem1" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple SeriesType="StackedArea">
+              <Value UniqueName="DataItem0" />
+              <PointLabelOptions Visible="true" OverlappingMode="Reposition" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+      <ChartLegend OutsidePosition="TopCenterHorizontal" />
+      <AxisX EnableZooming="true" LimitVisiblePoints="true" VisiblePointsCount="13" />
+    </Chart>
+  </Items>
+  <ColorSheme>
+    <Entry DataSource="dashboardSqlDataSource1" DataMember="tblCMS2" Color="-10523243">
+      <DimensionKeys>
+        <DimensionKey>
+          <Definition DataMember="Department" />
+          <Value Type="System.String" Value="Electricity" />
+        </DimensionKey>
+      </DimensionKeys>
+    </Entry>
+    <Entry DataSource="dashboardSqlDataSource1" DataMember="tblCMS2" Color="-10515563">
+      <DimensionKeys>
+        <DimensionKey>
+          <Definition DataMember="Department" />
+          <Value Type="System.String" Value="Rate" />
+        </DimensionKey>
+      </DimensionKeys>
+    </Entry>
+    <Entry DataSource="dashboardSqlDataSource1" DataMember="tblCMS2" Color="-10641791">
+      <DimensionKeys>
+        <DimensionKey>
+          <Definition DataMember="Department" />
+          <Value Type="System.String" Value="Water" />
+        </DimensionKey>
+      </DimensionKeys>
+    </Entry>
+  </ColorSheme>
+  <LayoutTree>
+    <LayoutGroup Orientation="Vertical">
+      <LayoutGroup Weight="44.4981684981685">
+        <LayoutItem DashboardItem="pieDashboardItem2" Weight="50.983957219251337" />
+        <LayoutItem DashboardItem="chartDashboardItem2" Weight="50.983957219251337" />
+      </LayoutGroup>
+      <LayoutItem DashboardItem="gridDashboardItem1" Weight="65.501831501831504" />
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>
